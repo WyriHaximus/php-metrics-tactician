@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 use Throwable;
 use WyriHaximus\Metrics\InMemory\Registry;
+use WyriHaximus\Metrics\Label;
 use WyriHaximus\Metrics\Printer\Prometheus;
 use WyriHaximus\Metrics\Tactician\CollectorMiddleware;
 
@@ -22,7 +23,7 @@ final class CollectorMiddlewareTest extends TestCase
     public function success(): void
     {
         $registry  = new Registry();
-        $collector = new CollectorMiddleware('test', $registry);
+        $collector = new CollectorMiddleware($registry, new Label('name', 'test'));
 
         $metrics = $registry->print(new Prometheus());
         self::assertSame("\n\n\n", $metrics);
@@ -49,7 +50,7 @@ final class CollectorMiddlewareTest extends TestCase
         $this->expectExceptionMessage('When in doubt, C4');
 
         $registry  = new Registry();
-        $collector = new CollectorMiddleware('test', $registry);
+        $collector = new CollectorMiddleware($registry, new Label('name', 'test'));
 
         $metrics = $registry->print(new Prometheus());
         self::assertSame("\n\n\n", $metrics);

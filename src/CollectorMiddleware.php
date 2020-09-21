@@ -10,6 +10,7 @@ use WyriHaximus\Metrics\Histogram\Buckets;
 use WyriHaximus\Metrics\Label;
 use WyriHaximus\Metrics\Registry;
 
+use function array_map;
 use function get_class;
 use function hrtime;
 
@@ -31,34 +32,37 @@ final class CollectorMiddleware implements Middleware
         10,
     ];
 
-    private string $name;
+    /** @var array<Label> */
+    private array $defaultLabels;
+
     private Registry\Gauges $inflight;
     private Registry\Counters $commands;
     private Registry\Histograms $executionTime;
 
-    public function __construct(string $name, Registry $registry)
+    public function __construct(Registry $registry, Label ...$defaultLabels)
     {
-        $this->name          = $name;
+        $this->defaultLabels = $defaultLabels;
+        $defaultLabelNames   = array_map(static fn (Label $label): Label\Name => new Label\Name($label->name()), $defaultLabels);
         $this->inflight      = $registry->gauge(
             'tactician_commands_inflight',
             'The number of HTTP requests that are currently inflight within the application',
-            new Label\Name('name'),
             new Label\Name('command'),
+            ...$defaultLabelNames
         );
         $this->commands      = $registry->counter(
             'tactician_commands',
             'The number of HTTP requests handled by HTTP request method and response status code',
-            new Label\Name('name'),
             new Label\Name('command'),
             new Label\Name('result'),
+            ...$defaultLabelNames
         );
         $this->executionTime = $registry->histogram(
             'tactician_command_execution_times',
             'The time it took to come to a response by HTTP request method and response status code',
             new Buckets(...self::EXECUTION_TIME_BUCKETS),
-            new Label\Name('name'),
             new Label\Name('command'),
             new Label\Name('result'),
+            ...$defaultLabelNames
         );
     }
 
@@ -66,30 +70,28 @@ final class CollectorMiddleware implements Middleware
     public function execute($command, callable $next)
     {
         $gauge = $this->inflight->gauge(
-            new Label('name', $this->name),
             new Label('command', get_class($command)),
+            ...$this->defaultLabels
         );
         $gauge->incr();
 
         $time = hrtime(true);
 
         try {
-            $labels = [
-                new Label('name', $this->name),
+            $labels = array_merge([
                 new Label('command', get_class($command)),
                 new Label('result', 'success'),
-            ];
+            ], $this->defaultLabels);
             $result = $next($command);
             $this->executionTime->histogram(...$labels)->observe((hrtime(true) - $time) / 1e+9);
             $this->commands->counter(...$labels)->incr();
 
             return $result;
         } catch (Throwable $throwable) {
-            $labels = [
-                new Label('name', $this->name),
+            $labels = array_merge([
                 new Label('command', get_class($command)),
                 new Label('result', 'error'),
-            ];
+            ], $this->defaultLabels);
             $this->executionTime->histogram(...$labels)->observe((hrtime(true) - $time) / 1e+9);
             $this->commands->counter(...$labels)->incr();
 
