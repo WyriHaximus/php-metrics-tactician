@@ -1,0 +1,45 @@
+{
+    "name": "wyrihaximus/metrics-tactician",
+    "description": "Metric collection for Tactician",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cees-Jan Kiewiet",
+            "email": "ceesjank@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "league/tactician": "^1.0",
+        "wyrihaximus/metrics": "dev-master"
+    },
+    "require-dev": {
+        "phpbench/phpbench": "^0.17.1",
+        "thecodingmachine/safe": "^1.2",
+        "wyrihaximus/test-utilities": "^2.5"
+    },
+    "config": {
+        "platform": {
+            "php": "7.4.7"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "WyriHaximus\\Metrics\\Tactician\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WyriHaximus\\Tests\\Metrics\\Tactician\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "composer normalize"
+        ],
+        "post-update-cmd": [
+            "composer normalize"
+        ]
+    }
+}

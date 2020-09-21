@@ -1,0 +1,8 @@
+parameters:
+	ergebnis:
+		classesAllowedToBeExtended:
+			- Exception
+			- InvalidArgumentException
+
+includes:
+	- vendor/wyrihaximus/test-utilities/rules.neon
