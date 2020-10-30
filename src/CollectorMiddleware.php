@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace WyriHaximus\Metrics\Tactician;
 
 use League\Tactician\Middleware;
-use Throwable;
 use WyriHaximus\Metrics\Histogram\Buckets;
 use WyriHaximus\Metrics\Label;
 use WyriHaximus\Metrics\Registry;
+use Throwable;
 
 use function array_map;
 use function get_class;
@@ -39,7 +39,7 @@ final class CollectorMiddleware implements Middleware
     private Registry\Counters $commands;
     private Registry\Histograms $executionTime;
 
-    public function __construct(Registry $registry, Label ...$defaultLabels)
+    public function __construct(Registry $registry, Label ...$defaultLabels): void
     {
         $this->defaultLabels = $defaultLabels;
         $defaultLabelNames   = array_map(static fn (Label $label): Label\Name => new Label\Name($label->name()), $defaultLabels);
