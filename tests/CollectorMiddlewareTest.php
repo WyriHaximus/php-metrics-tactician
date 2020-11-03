@@ -8,7 +8,7 @@ use Exception;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Throwable;
-use WyriHaximus\Metrics\InMemory\Registry;
+use WyriHaximus\Metrics\Factory;
 use WyriHaximus\Metrics\Label;
 use WyriHaximus\Metrics\Printer\Prometheus;
 use WyriHaximus\Metrics\Tactician\CollectorMiddleware;
@@ -22,7 +22,7 @@ final class CollectorMiddlewareTest extends TestCase
      */
     public function success(): void
     {
-        $registry  = new Registry();
+        $registry  = Factory::create();
         $collector = new CollectorMiddleware($registry, new Label('name', 'test'));
 
         $metrics = $registry->print(new Prometheus());
@@ -37,8 +37,8 @@ final class CollectorMiddlewareTest extends TestCase
         $metrics = $registry->print(new Prometheus());
         self::assertStringContainsString('tactician_commands_total{command="stdClass",name="test",result="success"} 1', $metrics);
         self::assertStringContainsString('tactician_commands_inflight{command="stdClass",name="test"} 0', $metrics);
-        self::assertStringContainsString('tactician_command_execution_times_bucket{le="1",command="stdClass",name="test",result="success"} 0', $metrics);
-        self::assertStringContainsString('tactician_command_execution_times_bucket{le="2.5",command="stdClass",name="test",result="success"} 1', $metrics);
+        self::assertStringContainsString('tactician_command_execution_times{quantile="0.1",command="stdClass",name="test",result="success"} 0.500', $metrics);
+        self::assertStringContainsString('tactician_command_execution_times{quantile="0.99",command="stdClass",name="test",result="success"} 0.500', $metrics);
     }
 
     /**
@@ -49,7 +49,7 @@ final class CollectorMiddlewareTest extends TestCase
         $this->expectException(Throwable::class);
         $this->expectExceptionMessage('When in doubt, C4');
 
-        $registry  = new Registry();
+        $registry  = Factory::create();
         $collector = new CollectorMiddleware($registry, new Label('name', 'test'));
 
         $metrics = $registry->print(new Prometheus());
@@ -68,8 +68,8 @@ final class CollectorMiddlewareTest extends TestCase
             $metrics = $registry->print(new Prometheus());
             self::assertStringContainsString('tactician_commands_total{command="stdClass",name="test",result="error"} 1', $metrics);
             self::assertStringContainsString('tactician_commands_inflight{command="stdClass",name="test"} 0', $metrics);
-            self::assertStringContainsString('tactician_command_execution_times_bucket{le="0.001",command="stdClass",name="test",result="error"} 0', $metrics);
-            self::assertStringContainsString('tactician_command_execution_times_bucket{le="2.5",command="stdClass",name="test",result="error"} 1', $metrics);
+            self::assertStringContainsString('tactician_command_execution_times{quantile="0.1",command="stdClass",name="test",result="error"} 0.500', $metrics);
+            self::assertStringContainsString('tactician_command_execution_times{quantile="0.99",command="stdClass",name="test",result="error"} 0.500', $metrics);
         }
     }
 }
