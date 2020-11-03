@@ -6,7 +6,7 @@ namespace WyriHaximus\Metrics\Tactician;
 
 use League\Tactician\Middleware;
 use Throwable;
-use WyriHaximus\Metrics\Histogram\Buckets;
+use WyriHaximus\Metrics\Factory;
 use WyriHaximus\Metrics\Label;
 use WyriHaximus\Metrics\Registry;
 
@@ -16,28 +16,12 @@ use function hrtime;
 
 final class CollectorMiddleware implements Middleware
 {
-    private const EXECUTION_TIME_BUCKETS = [
-        0.001,
-        0.0025,
-        0.005,
-        0.01,
-        0.025,
-        0.05,
-        0.1,
-        0.25,
-        0.5,
-        1,
-        2.5,
-        5,
-        10,
-    ];
-
     /** @var array<Label> */
     private array $defaultLabels;
 
     private Registry\Gauges $inflight;
     private Registry\Counters $commands;
-    private Registry\Histograms $executionTime;
+    private Registry\Summaries $executionTime;
 
     public function __construct(Registry $registry, Label ...$defaultLabels)
     {
@@ -56,10 +40,10 @@ final class CollectorMiddleware implements Middleware
             new Label\Name('result'),
             ...$defaultLabelNames
         );
-        $this->executionTime = $registry->histogram(
+        $this->executionTime = $registry->summary(
             'tactician_command_execution_times',
             'The time it took to come to a response by HTTP request method and response status code',
-            new Buckets(...self::EXECUTION_TIME_BUCKETS),
+            Factory::defaultQuantiles(),
             new Label\Name('command'),
             new Label\Name('result'),
             ...$defaultLabelNames
@@ -83,7 +67,7 @@ final class CollectorMiddleware implements Middleware
                 new Label('result', 'success'),
             ], $this->defaultLabels);
             $result = $next($command);
-            $this->executionTime->histogram(...$labels)->observe((hrtime(true) - $time) / 1e+9);
+            $this->executionTime->summary(...$labels)->observe((hrtime(true) - $time) / 1e+9);
             $this->commands->counter(...$labels)->incr();
 
             return $result;
@@ -92,7 +76,7 @@ final class CollectorMiddleware implements Middleware
                 new Label('command', get_class($command)),
                 new Label('result', 'error'),
             ], $this->defaultLabels);
-            $this->executionTime->histogram(...$labels)->observe((hrtime(true) - $time) / 1e+9);
+            $this->executionTime->summary(...$labels)->observe((hrtime(true) - $time) / 1e+9);
             $this->commands->counter(...$labels)->incr();
 
             throw $throwable;
