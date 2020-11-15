@@ -11,7 +11,7 @@
     "require": {
         "php": "^7.4",
         "league/tactician": "^1.0",
-        "wyrihaximus/metrics": "dev-master"
+        "wyrihaximus/metrics": "^1.0"
     },
     "require-dev": {
         "phpbench/phpbench": "^0.17.1",
