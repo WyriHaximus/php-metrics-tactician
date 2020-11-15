@@ -12,6 +12,7 @@ use WyriHaximus\Metrics\Factory;
 use WyriHaximus\Metrics\Label;
 use WyriHaximus\Metrics\Printer\Prometheus;
 use WyriHaximus\Metrics\Tactician\CollectorMiddleware;
+use WyriHaximus\Metrics\Tactician\Metrics;
 
 use function Safe\sleep;
 
@@ -23,7 +24,7 @@ final class CollectorMiddlewareTest extends TestCase
     public function success(): void
     {
         $registry  = Factory::create();
-        $collector = new CollectorMiddleware($registry, new Label('name', 'test'));
+        $collector = new CollectorMiddleware(Metrics::create($registry, new Label('name', 'test')));
 
         $metrics = $registry->print(new Prometheus());
         self::assertSame("\n\n\n", $metrics);
@@ -50,7 +51,7 @@ final class CollectorMiddlewareTest extends TestCase
         $this->expectExceptionMessage('When in doubt, C4');
 
         $registry  = Factory::create();
-        $collector = new CollectorMiddleware($registry, new Label('name', 'test'));
+        $collector = new CollectorMiddleware(Metrics::create($registry, new Label('name', 'test')));
 
         $metrics = $registry->print(new Prometheus());
         self::assertSame("\n\n\n", $metrics);
