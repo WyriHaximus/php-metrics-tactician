@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "16c6d37cf9f1df5fb4a03d10a247ecc3",
+    "content-hash": "38c2d143405f1acf637d4846bb96f38b",
     "packages": [
         {
             "name": "lcobucci/clock",
@@ -363,16 +363,16 @@
         },
         {
             "name": "wyrihaximus/metrics",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WyriHaximus/php-metrics.git",
-                "reference": "d4590e55ed787dfbfc1bda4cc9597efd508703ea"
+                "reference": "9a8dc375802f768726c113288b12fd427cf24162"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WyriHaximus/php-metrics/zipball/d4590e55ed787dfbfc1bda4cc9597efd508703ea",
-                "reference": "d4590e55ed787dfbfc1bda4cc9597efd508703ea",
+                "url": "https://api.github.com/repos/WyriHaximus/php-metrics/zipball/9a8dc375802f768726c113288b12fd427cf24162",
+                "reference": "9a8dc375802f768726c113288b12fd427cf24162",
                 "shasum": ""
             },
             "require": {
@@ -384,9 +384,8 @@
             },
             "require-dev": {
                 "phpbench/phpbench": "^0.17.1",
-                "wyrihaximus/test-utilities": "^2.5"
+                "wyrihaximus/test-utilities": "^2.5 || ^3.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -403,10 +402,10 @@
                     "email": "ceesjank@gmail.com"
                 }
             ],
-            "description": "🕵️‍♀️ Pure metric VO's and registry",
+            "description": "🕵️‍♀️ Prometheus modelled metric VO's and registry",
             "support": {
                 "issues": "https://github.com/WyriHaximus/php-metrics/issues",
-                "source": "https://github.com/WyriHaximus/php-metrics/tree/master"
+                "source": "https://github.com/WyriHaximus/php-metrics/tree/1.0.0"
             },
             "funding": [
                 {
@@ -414,7 +413,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-11-03T09:22:17+00:00"
+            "time": "2020-11-15T20:36:25+00:00"
         }
     ],
     "packages-dev": [
@@ -8859,9 +8858,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "wyrihaximus/metrics": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
