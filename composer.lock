@@ -116,24 +116,24 @@
         },
         {
             "name": "react-parallel/object-proxy-attributes",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp-parallel/object-proxy-attributes.git",
-                "reference": "dd73ba13b3f36fb2d7c2bd8eecee2d774d0109d0"
+                "reference": "2ee1cebc5f2a4dfd75f372ff77d144c631388859"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp-parallel/object-proxy-attributes/zipball/dd73ba13b3f36fb2d7c2bd8eecee2d774d0109d0",
-                "reference": "dd73ba13b3f36fb2d7c2bd8eecee2d774d0109d0",
+                "url": "https://api.github.com/repos/reactphp-parallel/object-proxy-attributes/zipball/2ee1cebc5f2a4dfd75f372ff77d144c631388859",
+                "reference": "2ee1cebc5f2a4dfd75f372ff77d144c631388859",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.4"
+                "php": "^8 || ^7.4"
             },
             "require-dev": {
                 "doctrine/annotations": "^1.11",
-                "wyrihaximus/test-utilities": "^2.9"
+                "wyrihaximus/test-utilities": "^2.9 || ^3.0"
             },
             "type": "library",
             "extra": {
@@ -164,7 +164,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-10-31T14:14:06+00:00"
+            "time": "2021-11-11T08:41:45+00:00"
         },
         {
             "name": "thecodingmachine/safe",
@@ -303,20 +303,20 @@
         },
         {
             "name": "wyrihaximus/constants",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WyriHaximus/php-constants.git",
-                "reference": "a2202b683261f8119f3772eb1e3469a2b5c4d9eb"
+                "reference": "32ceffdd881593c7fa24d8fcbf9deb58687484cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WyriHaximus/php-constants/zipball/a2202b683261f8119f3772eb1e3469a2b5c4d9eb",
-                "reference": "a2202b683261f8119f3772eb1e3469a2b5c4d9eb",
+                "url": "https://api.github.com/repos/WyriHaximus/php-constants/zipball/32ceffdd881593c7fa24d8fcbf9deb58687484cb",
+                "reference": "32ceffdd881593c7fa24d8fcbf9deb58687484cb",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0 || ^5.3"
+                "php": "^8 || ^7 || ^5.3"
             },
             "type": "library",
             "autoload": {
@@ -339,32 +339,40 @@
                 }
             ],
             "description": "Collection of constants for PHP",
-            "time": "2020-04-02T21:00:04+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/WyriHaximus",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-11-28T12:04:43+00:00"
         },
         {
             "name": "wyrihaximus/metrics",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WyriHaximus/php-metrics.git",
-                "reference": "9a8dc375802f768726c113288b12fd427cf24162"
+                "reference": "bb209f20b77401af681c25c9a886e92296c14902"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WyriHaximus/php-metrics/zipball/9a8dc375802f768726c113288b12fd427cf24162",
-                "reference": "9a8dc375802f768726c113288b12fd427cf24162",
+                "url": "https://api.github.com/repos/WyriHaximus/php-metrics/zipball/bb209f20b77401af681c25c9a886e92296c14902",
+                "reference": "bb209f20b77401af681c25c9a886e92296c14902",
                 "shasum": ""
             },
             "require": {
                 "lcobucci/clock": "^2.0",
-                "php": "^7.4",
+                "php": "^7.4 || ^8.0",
                 "react-parallel/object-proxy-attributes": "^1",
                 "thecodingmachine/safe": "^1.1",
                 "wyrihaximus/constants": "^1.5"
             },
             "require-dev": {
-                "phpbench/phpbench": "^0.17.1",
-                "wyrihaximus/test-utilities": "^2.5 || ^3.0"
+                "phpbench/phpbench": "^0.17.1 || ^1.0.0",
+                "phpstan/phpstan": "^0.12.99",
+                "vimeo/psalm": "^4.12",
+                "wyrihaximus/test-utilities": "^3.7.4"
             },
             "type": "library",
             "autoload": {
@@ -389,7 +397,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-11-15T20:36:25+00:00"
+            "time": "2021-11-10T16:03:58+00:00"
         }
     ],
     "packages-dev": [
@@ -8020,12 +8028,12 @@
             "version": "1.9.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "shasum": ""
             },
@@ -8069,12 +8077,12 @@
             "version": "4.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/glob.git",
+                "url": "https://github.com/webmozarts/glob.git",
                 "reference": "3cbf63d4973cf9d780b93d2da8eec7e4a9e63bbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/glob/zipball/3cbf63d4973cf9d780b93d2da8eec7e4a9e63bbe",
+                "url": "https://api.github.com/repos/webmozarts/glob/zipball/3cbf63d4973cf9d780b93d2da8eec7e4a9e63bbe",
                 "reference": "3cbf63d4973cf9d780b93d2da8eec7e4a9e63bbe",
                 "shasum": ""
             },
@@ -8155,6 +8163,7 @@
                 }
             ],
             "description": "A robust cross-platform utility for normalizing, comparing and modifying file paths.",
+            "abandoned": "symfony/filesystem",
             "time": "2015-12-17T08:42:14+00:00"
         },
         {
