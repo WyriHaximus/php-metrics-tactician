@@ -38,8 +38,8 @@ final class CollectorMiddlewareTest extends TestCase
         $metrics = $registry->print(new Prometheus());
         self::assertStringContainsString('tactician_commands_total{command="stdClass",name="test",result="success"} 1', $metrics);
         self::assertStringContainsString('tactician_commands_inflight{command="stdClass",name="test"} 0', $metrics);
-        self::assertStringContainsString('tactician_command_execution_times{quantile="0.1",command="stdClass",name="test",result="success"} 0.500', $metrics);
-        self::assertStringContainsString('tactician_command_execution_times{quantile="0.99",command="stdClass",name="test",result="success"} 0.500', $metrics);
+        self::assertStringContainsString('tactician_command_execution_times{quantile="0.1",command="stdClass",name="test",result="success"} 1.000', $metrics);
+        self::assertStringContainsString('tactician_command_execution_times{quantile="0.99",command="stdClass",name="test",result="success"} 1.000', $metrics);
     }
 
     /**
@@ -69,8 +69,8 @@ final class CollectorMiddlewareTest extends TestCase
             $metrics = $registry->print(new Prometheus());
             self::assertStringContainsString('tactician_commands_total{command="stdClass",name="test",result="error"} 1', $metrics);
             self::assertStringContainsString('tactician_commands_inflight{command="stdClass",name="test"} 0', $metrics);
-            self::assertStringContainsString('tactician_command_execution_times{quantile="0.1",command="stdClass",name="test",result="error"} 0.500', $metrics);
-            self::assertStringContainsString('tactician_command_execution_times{quantile="0.99",command="stdClass",name="test",result="error"} 0.500', $metrics);
+            self::assertStringContainsString('tactician_command_execution_times{quantile="0.1",command="stdClass",name="test",result="error"} 1.000', $metrics);
+            self::assertStringContainsString('tactician_command_execution_times{quantile="0.99",command="stdClass",name="test",result="error"} 1.000', $metrics);
         }
     }
 }
