@@ -9,6 +9,7 @@
         "text": "infection-log.txt"
     },
     "mutators": {
-        "@default": true
+        "@default": true,
+        "Division": false
     }
 }
