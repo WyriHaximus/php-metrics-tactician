@@ -14,7 +14,7 @@
         "wyrihaximus/metrics": "^2 || ^1.1"
     },
     "require-dev": {
-        "phpbench/phpbench": "^0.17.1",
+        "phpbench/phpbench": "^0.17.1 || ^1.0.0",
         "thecodingmachine/safe": "^1.3.3",
         "wyrihaximus/test-utilities": "^3.7.4"
     },
