@@ -30,6 +30,10 @@ final class CollectorMiddleware implements Middleware
     }
 
     // phpcs:disable
+
+    /**
+     * @phpstan-ignore shipmonk.missingNativeReturnTypehint
+     */
     public function execute($command, callable $next)
     {
         $class = get_class($command);

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace WyriHaximus\Tests\Metrics\Tactician;
 
 use Exception;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Throwable;
@@ -18,16 +19,14 @@ use function Safe\sleep;
 
 final class CollectorMiddlewareTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function success(): void
     {
         $registry  = Factory::create();
         $collector = new CollectorMiddleware(Metrics::create($registry, new Label('name', 'test')));
 
         $metrics = $registry->print(new Prometheus());
-        self::assertSame("\n\n\n", $metrics);
+        self::assertSame("\n\n\n# EOF\n", $metrics);
 
         $collector->execute(new stdClass(), static function (): stdClass {
             sleep(1);
@@ -42,9 +41,7 @@ final class CollectorMiddlewareTest extends TestCase
         self::assertStringContainsString('tactician_command_execution_times{quantile="0.99",command="stdClass",name="test",result="success"} 1.000', $metrics);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function error(): void
     {
         $this->expectException(Throwable::class);
@@ -54,7 +51,7 @@ final class CollectorMiddlewareTest extends TestCase
         $collector = new CollectorMiddleware(Metrics::create($registry, new Label('name', 'test')));
 
         $metrics = $registry->print(new Prometheus());
-        self::assertSame("\n\n\n", $metrics);
+        self::assertSame("\n\n\n# EOF\n", $metrics);
 
         try {
             $collector->execute(new stdClass(), static function (): void {

@@ -1,0 +1,6 @@
+parameters:
+	level: max
+	ergebnis:
+		noExtends:
+			classesAllowedToBeExtended:
+				- InvalidArgumentException
