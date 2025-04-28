@@ -15,15 +15,8 @@ final class Metrics
     /** @var array<Label> */
     private array $defaultLabels;
 
-    private Registry\Gauges $inflight;
-    private Registry\Counters $commands;
-    private Registry\Summaries $executionTime;
-
-    public function __construct(Registry\Gauges $inflight, Registry\Counters $commands, Registry\Summaries $executionTime, Label ...$defaultLabels)
+    public function __construct(private Registry\Gauges $inflight, private Registry\Counters $commands, private Registry\Summaries $executionTime, Label ...$defaultLabels)
     {
-        $this->inflight      = $inflight;
-        $this->commands      = $commands;
-        $this->executionTime = $executionTime;
         $this->defaultLabels = $defaultLabels;
     }
 
@@ -36,14 +29,14 @@ final class Metrics
                 'tactician_commands_inflight',
                 'The number of HTTP requests that are currently inflight within the application',
                 new Label\Name('command'),
-                ...$defaultLabelNames
+                ...$defaultLabelNames,
             ),
             $registry->counter(
                 'tactician_commands',
                 'The number of HTTP requests handled by HTTP request method and response status code',
                 new Label\Name('command'),
                 new Label\Name('result'),
-                ...$defaultLabelNames
+                ...$defaultLabelNames,
             ),
             $registry->summary(
                 'tactician_command_execution_times',
@@ -51,15 +44,13 @@ final class Metrics
                 Factory::defaultQuantiles(),
                 new Label\Name('command'),
                 new Label\Name('result'),
-                ...$defaultLabelNames
+                ...$defaultLabelNames,
             ),
-            ...$defaultLabels
+            ...$defaultLabels,
         );
     }
 
-    /**
-     * @return array<Label>
-     */
+    /** @return array<Label> */
     public function defaultLabels(): array
     {
         return $this->defaultLabels;
