@@ -17,6 +17,8 @@ use WyriHaximus\Metrics\Tactician\Metrics;
 
 use function Safe\sleep;
 
+use const PHP_OS_FAMILY;
+
 final class CollectorMiddlewareTest extends TestCase
 {
     #[Test]
@@ -28,17 +30,19 @@ final class CollectorMiddlewareTest extends TestCase
         $metrics = $registry->print(new Prometheus());
         self::assertSame("\n\n\n# EOF\n", $metrics);
 
-        $collector->execute(new stdClass(), static function (): stdClass {
+        $stdClass = $collector->execute(new stdClass(), static function (): stdClass {
             sleep(1);
 
             return new stdClass();
         });
 
+        self::assertInstanceOf(stdClass::class, $stdClass);
+
         $metrics = $registry->print(new Prometheus());
         self::assertStringContainsString('tactician_commands_total{command="stdClass",name="test",result="success"} 1', $metrics);
         self::assertStringContainsString('tactician_commands_inflight{command="stdClass",name="test"} 0', $metrics);
-        self::assertStringContainsString('tactician_command_execution_times{quantile="0.1",command="stdClass",name="test",result="success"} 1.000', $metrics);
-        self::assertStringContainsString('tactician_command_execution_times{quantile="0.99",command="stdClass",name="test",result="success"} 1.000', $metrics);
+        self::assertStringContainsString('tactician_command_execution_times{quantile="0.1",command="stdClass",name="test",result="success"} 1.' . $this->getBehindThePeriod(), $metrics);
+        self::assertStringContainsString('tactician_command_execution_times{quantile="0.99",command="stdClass",name="test",result="success"} 1.' . $this->getBehindThePeriod(), $metrics);
     }
 
     #[Test]
@@ -54,7 +58,7 @@ final class CollectorMiddlewareTest extends TestCase
         self::assertSame("\n\n\n# EOF\n", $metrics);
 
         try {
-            $collector->execute(new stdClass(), static function (): void {
+            $collector->execute(new stdClass(), static function (): never {
                 sleep(1);
 
                 /** @phpstan-ignore-next-line */
@@ -66,8 +70,21 @@ final class CollectorMiddlewareTest extends TestCase
             $metrics = $registry->print(new Prometheus());
             self::assertStringContainsString('tactician_commands_total{command="stdClass",name="test",result="error"} 1', $metrics);
             self::assertStringContainsString('tactician_commands_inflight{command="stdClass",name="test"} 0', $metrics);
-            self::assertStringContainsString('tactician_command_execution_times{quantile="0.1",command="stdClass",name="test",result="error"} 1.000', $metrics);
-            self::assertStringContainsString('tactician_command_execution_times{quantile="0.99",command="stdClass",name="test",result="error"} 1.000', $metrics);
+            self::assertStringContainsString('tactician_command_execution_times{quantile="0.1",command="stdClass",name="test",result="error"} 1.' . $this->getBehindThePeriod(), $metrics);
+            self::assertStringContainsString('tactician_command_execution_times{quantile="0.99",command="stdClass",name="test",result="error"} 1.' . $this->getBehindThePeriod(), $metrics);
         }
+    }
+
+    private function getBehindThePeriod(): string
+    {
+        if (PHP_OS_FAMILY === 'Darwin') {
+            return '';
+        }
+
+        if (PHP_OS_FAMILY === 'Windows') {
+            return '0';
+        }
+
+        return '000';
     }
 }
