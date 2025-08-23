@@ -9,10 +9,9 @@ use Throwable;
 use WyriHaximus\Metrics\Label;
 use WyriHaximus\Metrics\Registry;
 
-use function get_class;
 use function hrtime;
 
-final class CollectorMiddleware implements Middleware
+final readonly class CollectorMiddleware implements Middleware
 {
     /** @var array<Label> */
     private array $defaultLabels;
@@ -36,7 +35,7 @@ final class CollectorMiddleware implements Middleware
      */
     public function execute($command, callable $next)
     {
-        $class = get_class($command);
+        $class = $command::class;
         $gauge = $this->inflight->gauge(
             new Label('command', $class),
             ...$this->defaultLabels

@@ -10,7 +10,7 @@ use WyriHaximus\Metrics\Registry;
 
 use function array_map;
 
-final class Metrics
+final readonly class Metrics
 {
     /** @var array<Label> */
     private array $defaultLabels;
