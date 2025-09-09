@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3003205cf9b862f65bf094d2ae8896ca",
+    "content-hash": "2f18ab33c7f5f67da8a85392e895ea47",
     "packages": [
         {
             "name": "lcobucci/clock",
@@ -9111,16 +9111,16 @@
         },
         {
             "name": "wyrihaximus/makefiles",
-            "version": "0.6.0",
+            "version": "0.7.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WyriHaximus/Makefiles.git",
-                "reference": "f29f168198c37cb410b85bf08c2c81aab32e322b"
+                "reference": "c843ab1522637130075a79de221f3b86118b09f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WyriHaximus/Makefiles/zipball/f29f168198c37cb410b85bf08c2c81aab32e322b",
-                "reference": "f29f168198c37cb410b85bf08c2c81aab32e322b",
+                "url": "https://api.github.com/repos/WyriHaximus/Makefiles/zipball/c843ab1522637130075a79de221f3b86118b09f9",
+                "reference": "c843ab1522637130075a79de221f3b86118b09f9",
                 "shasum": ""
             },
             "require": {
@@ -9129,7 +9129,7 @@
                 "php": "^8.4"
             },
             "require-dev": {
-                "wyrihaximus/test-utilities": "^8.0.0"
+                "wyrihaximus/test-utilities": "^8.1.0"
             },
             "type": "composer-plugin",
             "extra": {
@@ -9153,7 +9153,7 @@
             "description": "🧱 Makefile building blocks",
             "support": {
                 "issues": "https://github.com/WyriHaximus/Makefiles/issues",
-                "source": "https://github.com/WyriHaximus/Makefiles/tree/0.6.0"
+                "source": "https://github.com/WyriHaximus/Makefiles/tree/0.7.5"
             },
             "funding": [
                 {
@@ -9161,7 +9161,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-08-20T07:50:55+00:00"
+            "time": "2025-09-07T16:20:50+00:00"
         },
         {
             "name": "wyrihaximus/phpstan-rules-wrapper",
