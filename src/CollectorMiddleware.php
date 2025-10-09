@@ -31,7 +31,7 @@ final readonly class CollectorMiddleware implements Middleware
     // phpcs:disable
 
     /**
-     * @phpstan-ignore shipmonk.missingNativeReturnTypehint
+     * @phpstan-ignore shipmonk.missingNativeReturnTypehint,typeCoverage.paramTypeCoverage,typeCoverage.returnTypeCoverage
      */
     public function execute($command, callable $next)
     {
