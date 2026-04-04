@@ -61,7 +61,6 @@ final class CollectorMiddlewareTest extends TestCase
             $collector->execute(new stdClass(), static function (): never {
                 sleep(1);
 
-                /** @phpstan-ignore-next-line */
                 throw new Exception('When in doubt, C4');
             });
         } catch (Throwable $throwable) {

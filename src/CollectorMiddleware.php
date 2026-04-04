@@ -7,25 +7,14 @@ namespace WyriHaximus\Metrics\Tactician;
 use League\Tactician\Middleware;
 use Throwable;
 use WyriHaximus\Metrics\Label;
-use WyriHaximus\Metrics\Registry;
 
 use function hrtime;
 
+/** @api */
 final readonly class CollectorMiddleware implements Middleware
 {
-    /** @var array<Label> */
-    private array $defaultLabels;
-
-    private Registry\Gauges $inflight;
-    private Registry\Counters $commands;
-    private Registry\Summaries $executionTime;
-
-    public function __construct(Metrics $metrics)
+    public function __construct(private Metrics $metrics)
     {
-        $this->defaultLabels = $metrics->defaultLabels();
-        $this->inflight      = $metrics->inflight();
-        $this->commands      = $metrics->commands();
-        $this->executionTime = $metrics->executionTime();
     }
 
     // phpcs:disable
@@ -36,9 +25,9 @@ final readonly class CollectorMiddleware implements Middleware
     public function execute($command, callable $next)
     {
         $class = $command::class;
-        $gauge = $this->inflight->gauge(
+        $gauge = $this->metrics->inflight->gauge(
             new Label('command', $class),
-            ...$this->defaultLabels
+            ...$this->metrics->defaultLabels
         );
         $gauge->incr();
 
@@ -48,19 +37,19 @@ final readonly class CollectorMiddleware implements Middleware
             $labels = array_merge([
                 new Label('command', $class),
                 new Label('result', 'success'),
-            ], $this->defaultLabels);
+            ], $this->metrics->defaultLabels);
             $result = $next($command);
-            $this->executionTime->summary(...$labels)->observe((hrtime(true) - $time) / 1e+9);
-            $this->commands->counter(...$labels)->incr();
+            $this->metrics->executionTime->summary(...$labels)->observe((hrtime(true) - $time) / 1e+9);
+            $this->metrics->commands->counter(...$labels)->incr();
 
             return $result;
         } catch (Throwable $throwable) {
             $labels = array_merge([
                 new Label('command', $class),
                 new Label('result', 'error'),
-            ], $this->defaultLabels);
-            $this->executionTime->summary(...$labels)->observe((hrtime(true) - $time) / 1e+9);
-            $this->commands->counter(...$labels)->incr();
+            ], $this->metrics->defaultLabels);
+            $this->metrics->executionTime->summary(...$labels)->observe((hrtime(true) - $time) / 1e+9);
+            $this->metrics->commands->counter(...$labels)->incr();
 
             throw $throwable;
         } finally {
