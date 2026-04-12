@@ -10,12 +10,13 @@ use WyriHaximus\Metrics\Registry;
 
 use function array_map;
 
+/** @api */
 final readonly class Metrics
 {
     /** @var array<Label> */
-    private array $defaultLabels;
+    public array $defaultLabels;
 
-    public function __construct(private Registry\Gauges $inflight, private Registry\Counters $commands, private Registry\Summaries $executionTime, Label ...$defaultLabels)
+    public function __construct(public Registry\Gauges $inflight, public Registry\Counters $commands, public Registry\Summaries $executionTime, Label ...$defaultLabels)
     {
         $this->defaultLabels = $defaultLabels;
     }
@@ -48,26 +49,5 @@ final readonly class Metrics
             ),
             ...$defaultLabels,
         );
-    }
-
-    /** @return array<Label> */
-    public function defaultLabels(): array
-    {
-        return $this->defaultLabels;
-    }
-
-    public function inflight(): Registry\Gauges
-    {
-        return $this->inflight;
-    }
-
-    public function commands(): Registry\Counters
-    {
-        return $this->commands;
-    }
-
-    public function executionTime(): Registry\Summaries
-    {
-        return $this->executionTime;
     }
 }
