@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "71f12056a3c0adfc33afe133d168e4d2",
+    "content-hash": "c8564e631b3c871538f7f2f1bae40de8",
     "packages": [
         {
             "name": "lcobucci/clock",
@@ -9389,16 +9389,16 @@
         },
         {
             "name": "wyrihaximus/makefiles",
-            "version": "0.7.16",
+            "version": "0.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WyriHaximus/Makefiles.git",
-                "reference": "2628d098eb9c628e18c7d7b7e822a66c7c144775"
+                "reference": "aae3aa61765f5f570cfe338e26e2e0061383dc23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WyriHaximus/Makefiles/zipball/2628d098eb9c628e18c7d7b7e822a66c7c144775",
-                "reference": "2628d098eb9c628e18c7d7b7e822a66c7c144775",
+                "url": "https://api.github.com/repos/WyriHaximus/Makefiles/zipball/aae3aa61765f5f570cfe338e26e2e0061383dc23",
+                "reference": "aae3aa61765f5f570cfe338e26e2e0061383dc23",
                 "shasum": ""
             },
             "require": {
@@ -9407,10 +9407,10 @@
                 "php": "^8.4"
             },
             "conflict": {
-                "infection/infection": "<0.31.3"
+                "infection/infection": "<0.32.0"
             },
             "require-dev": {
-                "wyrihaximus/test-utilities": "^8.8.0"
+                "wyrihaximus/test-utilities": "^12.0.0"
             },
             "type": "composer-plugin",
             "extra": {
@@ -9434,7 +9434,7 @@
             "description": "🧱 Makefile building blocks",
             "support": {
                 "issues": "https://github.com/WyriHaximus/Makefiles/issues",
-                "source": "https://github.com/WyriHaximus/Makefiles/tree/0.7.16"
+                "source": "https://github.com/WyriHaximus/Makefiles/tree/0.10.3"
             },
             "funding": [
                 {
@@ -9442,7 +9442,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-12-22T16:36:23+00:00"
+            "time": "2026-03-12T06:38:36+00:00"
         },
         {
             "name": "wyrihaximus/phpstan-rules-wrapper",
