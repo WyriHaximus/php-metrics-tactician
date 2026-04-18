@@ -15,7 +15,7 @@
   },
   "require-dev": {
     "phpbench/phpbench": "^1.4.1",
-    "wyrihaximus/makefiles": "^0.10.3",
+    "wyrihaximus/makefiles": "^0.10.4",
     "wyrihaximus/test-utilities": "^12.1.0"
   },
   "autoload": {
