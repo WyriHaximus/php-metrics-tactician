@@ -15,7 +15,7 @@ use WyriHaximus\Metrics\Printer\Prometheus;
 use WyriHaximus\Metrics\Tactician\CollectorMiddleware;
 use WyriHaximus\Metrics\Tactician\Metrics;
 
-use function Safe\sleep;
+use function sleep;
 
 use const PHP_OS_FAMILY;
 
