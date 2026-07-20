@@ -49,7 +49,7 @@ final class CollectorMiddlewareTest extends TestCase
     public function error(): void
     {
         $this->expectException(Throwable::class);
-        $this->expectExceptionMessage('When in doubt, C4');
+        $this->expectExceptionMessageIsOrContains('When in doubt, C4');
 
         $registry  = Factory::create();
         $collector = new CollectorMiddleware(Metrics::create($registry, new Label('name', 'test')));
