@@ -17,7 +17,9 @@ composer require wyrihaximus/metrics-tactician
 
 # Usage
 
+<!-- vale Vale.Spelling = NO -->
 [`wyrihaximus/metrics`](https://github.com/WyriHaximus/php-metrics) middleware for [`Tactician`](https://tactician.thephpleague.com/).
+<!-- vale Vale.Spelling = YES -->
 
 ```php
 <?php
